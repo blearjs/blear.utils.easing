@@ -1,8 +1,8 @@
 'use strict';
 
-var bezier = require('./bezier.js');
-var object = require('./object.js');
-var typeis = require('./typeis.js');
+var bezier = require('blear.utils.bezier');
+var object = require('blear.utils.object');
+var typeis = require('blear.utils.typeis');
 
 // css3 内置的缓冲类型
 var cssEasingMap = require('./easing.json', 'json');
