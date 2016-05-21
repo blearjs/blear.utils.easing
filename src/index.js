@@ -1,6 +1,6 @@
 'use strict';
 
-var bezier = require('blear.utils.bezier');
+var bezier = require('blear.shims.bezier');
 var object = require('blear.utils.object');
 var typeis = require('blear.utils.typeis');
 
