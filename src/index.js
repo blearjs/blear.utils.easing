@@ -86,6 +86,25 @@ exports.timingFunction = function (easing) {
     var args = access.args(arguments);
     var timingFunctionList = [];
 
+    if (args.length === 1 && typeis.Array(args[0])) {
+        var guessIs2DimensionArray = false;
+        var lastTypeis;
+
+        array.each(args[0], function (index, item) {
+            // steps(Number, end) || cubic-bezier(0.1, 0.7, 1.0, 0.1)
+            if (typeis.String(item) && lastTypeis !== 'number' || typeis.Array(item)) {
+                guessIs2DimensionArray = true;
+                return false;
+            }
+
+            lastTypeis = typeis(item);
+        });
+
+        if (guessIs2DimensionArray) {
+            args = args[0];
+        }
+    }
+
     array.each(args, function (index, arg) {
         timingFunctionList.push(makeEasing(arg));
     });

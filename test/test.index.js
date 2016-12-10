@@ -38,13 +38,21 @@ describe('index.js', function () {
     });
 
     it('.timingFunction 数组', function () {
-        var ret = easing.timingFunction([0.3, 0.6, 0.2, 0.1]);
+        var ret1 = easing.timingFunction([0.3, 0.6, 0.2, 0.1]);
+        var ret2 = easing.timingFunction([[0.3, 0.6, 0.2, 0.1]]);
 
-        expect(ret).toEqual('cubic-bezier(0.3,0.6,0.2,0.1)');
+        expect(ret1).toEqual('cubic-bezier(0.3,0.6,0.2,0.1)');
+        expect(ret2).toEqual('cubic-bezier(0.3,0.6,0.2,0.1)');
     });
 
     it('.timingFunction 多个参数', function () {
         var ret1 = easing.timingFunction('linear', 'step-start', [0, 0, 0.2, 0.3], [4, 'end']);
+
+        expect(ret1).toEqual('cubic-bezier(0,0,1,1),step-start,cubic-bezier(0,0,0.2,0.3),steps(4,end)');
+    });
+
+    it('.timingFunction 2维数组', function () {
+        var ret1 = easing.timingFunction(['linear', 'step-start', [0, 0, 0.2, 0.3], [4, 'end']]);
 
         expect(ret1).toEqual('cubic-bezier(0,0,1,1),step-start,cubic-bezier(0,0,0.2,0.3),steps(4,end)');
     });
