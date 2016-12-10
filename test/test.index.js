@@ -27,17 +27,25 @@ describe('index.js', function () {
         done();
     });
 
-    it('.timingFunction:string', function () {
+    it('.timingFunction 字符串', function () {
         var ret1 = easing.timingFunction('linear');
         var ret2 = easing.timingFunction('linear2');
+        var ret3 = easing.timingFunction('step-start');
 
         expect(ret1).toEqual('cubic-bezier(0,0,1,1)');
-        expect(ret2).toEqual('cubic-bezier(0,0,1,1)');
+        expect(ret2).toEqual('linear2');
+        expect(ret3).toEqual('step-start');
     });
 
-    it('.timingFunction:array', function () {
+    it('.timingFunction 数组', function () {
         var ret = easing.timingFunction([0.3, 0.6, 0.2, 0.1]);
 
         expect(ret).toEqual('cubic-bezier(0.3,0.6,0.2,0.1)');
+    });
+
+    it('.timingFunction 多个参数', function () {
+        var ret1 = easing.timingFunction('linear', 'step-start', [0, 0, 0.2, 0.3], [4, 'end']);
+
+        expect(ret1).toEqual('cubic-bezier(0,0,1,1),step-start,cubic-bezier(0,0,0.2,0.3),steps(4,end)');
     });
 });

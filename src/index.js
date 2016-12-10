@@ -3,6 +3,8 @@
 var bezier = require('blear.shims.bezier');
 var object = require('blear.utils.object');
 var typeis = require('blear.utils.typeis');
+var access = require('blear.utils.access');
+var array = require('blear.utils.array');
 
 // css3 内置的缓冲类型
 var cssEasingMap = require('./easing.json', 'json');
@@ -44,23 +46,49 @@ object.each(cssEasingMap, function (key, args) {
 });
 
 
+var makeEasing = function (easing) {
+    var args;
+
+    if (typeis.Array(easing)) {
+        args = easing;
+    } else {
+        args = cssEasingMap[easing];
+
+        if (!args) {
+            return easing;
+        }
+    }
+
+    var argString = args.join(',');
+
+    // transition-timing-function: ease
+    // transition-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1)
+    // transition-timing-function: step-start
+    // transition-timing-function: step-end
+    // transition-timing-function: steps(4, start)
+    // transition-timing-function: steps(4, end)
+    // transition-timing-function: ease, step-start, cubic-bezier(0.1, 0.7, 1.0, 0.1)
+    // transition-timing-function: inherit
+    if (args.length === 2) {
+        return 'steps(' + argString + ')';
+    }
+
+    return 'cubic-bezier(' + argString + ')';
+};
+
+
 /**
  * timing function
  * @param easing {string|Array} easing 名称、坐标
  * @returns {string}
  */
 exports.timingFunction = function (easing) {
-    var timingFunctionArray;
+    var args = access.args(arguments);
+    var timingFunctionList = [];
 
-    if (typeis.Array(easing)) {
-        timingFunctionArray = easing;
-    } else {
-        timingFunctionArray = cssEasingMap[easing];
-    }
+    array.each(args, function (index, arg) {
+        timingFunctionList.push(makeEasing(arg));
+    });
 
-    if (!timingFunctionArray) {
-        timingFunctionArray = cssEasingMap.linear;
-    }
-
-    return 'cubic-bezier(' + timingFunctionArray.join(',') + ')';
+    return timingFunctionList.join(',');
 };

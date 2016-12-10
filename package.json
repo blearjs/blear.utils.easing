@@ -1,6 +1,6 @@
 {
   "name": "blear.utils.easing",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "缓冲",
   "scripts": {
     "live": "browser-sync start --config bs-config.js",
@@ -39,6 +39,8 @@
   "peerDependencies": {
     "blear.utils.typeis": "1.x",
     "blear.utils.object": "1.x",
+    "blear.utils.access": "1.x",
+    "blear.utils.array": "1.x",
     "blear.shims.bezier": "1.x"
   },
   "devDependencies": {
