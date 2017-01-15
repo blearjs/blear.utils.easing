@@ -28,12 +28,12 @@ describe('index.js', function () {
         done();
     });
 
-    it('.create', function (done) {
+    it('.bezier', function (done) {
         var checker = function (x) {
             return x;
         };
         var index = 0;
-        var linear = easing.create(0, 0, 1, 1);
+        var linear = easing.bezier(0, 0, 1, 1);
 
         while (true) {
             index += 0.1;

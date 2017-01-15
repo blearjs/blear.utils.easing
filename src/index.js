@@ -54,7 +54,7 @@ object.each(cssEasingMap, function (key, args) {
  * @param mY2
  * @returns {Function}
  */
-exports.create = function (mX1, mY1, mX2, mY2) {
+exports.bezier = function (mX1, mY1, mX2, mY2) {
     return bezier.create(mX1, mY1, mX2, mY2);
 };
 
