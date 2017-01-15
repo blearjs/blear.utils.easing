@@ -46,6 +46,19 @@ object.each(cssEasingMap, function (key, args) {
 });
 
 
+/**
+ * 创建贝塞尔曲线函数
+ * @param mX1
+ * @param mY1
+ * @param mX2
+ * @param mY2
+ * @returns {Function}
+ */
+exports.create = function (mX1, mY1, mX2, mY2) {
+    return bezier.create(mX1, mY1, mX2, mY2);
+};
+
+
 var makeEasing = function (easing) {
     var args;
 

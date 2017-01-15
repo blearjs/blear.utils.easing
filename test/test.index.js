@@ -15,10 +15,29 @@ describe('index.js', function () {
             return x;
         };
         var index = 0;
+        var linear = easing.linear;
 
         while (true) {
             index += 0.1;
-            expect(easing.linear(index)).toEqual(checker(index));
+            expect(linear(index)).toEqual(checker(index));
+            if (index >= 0.9) {
+                break;
+            }
+        }
+
+        done();
+    });
+
+    it('.create', function (done) {
+        var checker = function (x) {
+            return x;
+        };
+        var index = 0;
+        var linear = easing.create(0, 0, 1, 1);
+
+        while (true) {
+            index += 0.1;
+            expect(linear(index)).toEqual(checker(index));
             if (index >= 0.9) {
                 break;
             }
